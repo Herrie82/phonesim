@@ -24,7 +24,6 @@
 #include <qcombobox.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
-#include <Qt>
 #include <qbuffer.h>
 #include <qtimer.h>
 #include <qevent.h>
@@ -337,7 +336,7 @@ void ControlWidget::sendSMSMessage()
         return;
     }
 
-    if (ui->leSMSServiceCenter->text().isEmpty() || ui->leSMSServiceCenter->text().contains(QRegExp("\\D"))) {
+    if (ui->leSMSServiceCenter->text().isEmpty() || ui->leSMSServiceCenter->text().contains(QRegularExpression(R"(\D)"))) {
         p->warning(tr("Invalid Service Center"),
                 tr("Service Center must not be empty and contain "
                    "only digits"));
@@ -386,14 +385,14 @@ void ControlWidget::selectFile()
 void ControlWidget::sendSMSDatagram()
 {
     QString dstPortStr = ui->leDstPort->text();
-    if ( dstPortStr.contains(QRegExp("\\D")) ) {
+    if ( dstPortStr.contains(QRegularExpression(R"(\D)")) ) {
         p->warning(tr("Invalid Port"), tr("Port number can contain only digits" ));
         return;
     }
     int dst = dstPortStr.toInt();
 
     QString srcPortStr = ui->leSrcPort->text();
-    if ( srcPortStr.contains(QRegExp("\\D")) ) {
+    if ( srcPortStr.contains(QRegularExpression(R"(\D)")) ) {
         p->warning(tr("Invalid Port"), tr("Port number can contain only digits" ));
         return;
     }
@@ -700,7 +699,6 @@ QString Script::Run(const QString &name, const QDBusMessage &msg)
     }
 
     QTextStream stream(&scriptFile);
-    stream.setCodec("UTF-8");
     QString contents = stream.readAll();
     scriptFile.close();
 

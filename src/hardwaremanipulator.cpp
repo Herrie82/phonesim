@@ -18,7 +18,6 @@
 ****************************************************************************/
 
 #include "hardwaremanipulator.h"
-#include <Qt>
 #include <qdebug.h>
 #include <qbuffer.h>
 #include <qtimer.h>

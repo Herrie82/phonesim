@@ -346,7 +346,7 @@ bool SimChat::command( const QString& cmd )
         else {
             int index = value.indexOf( "${*}" );
             if ( index != -1 ) {
-                if ( wild.length() > 0 && wild[wild.length() - 1] == 0x1A ) {
+                if ( wild.length() > 0 && wild[wild.length() - 1] == QChar(0x1A) ) {
                     // Strip the terminating ^Z from SMS PDU's.
                     wild = wild.left( wild.length() - 1 );
                 }

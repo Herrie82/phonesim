@@ -707,7 +707,7 @@ QString QWspPduDecoder::decodeTextString()
     if (o == '\"')
         o = decodeOctet();
     while (o != 0 && !dev->atEnd()) {
-        str += o;
+        str += QChar(o);
         o = decodeOctet();
     }
 
@@ -722,7 +722,7 @@ QString QWspPduDecoder::decodeTextBlock(int length)
 {
     QString result;
     for(int i = 0; i < length; ++i)
-        result += decodeOctet();
+        result += QChar(decodeOctet());
     return result;
 }
 
@@ -815,7 +815,7 @@ QString QWspPduDecoder::decodeContentType()
             // Extension-Media
             o = decodeOctet();
             while (o != 0) {
-                type += o;
+                type += QChar(o);
                 o = decodeOctet();
             }
         }
@@ -838,7 +838,7 @@ QString QWspPduDecoder::decodeContentType()
         // Constrained-encoding = Extension-Media
         o = decodeOctet();
         while (o != 0) {
-            type += o;
+            type += QChar(o);
             o = decodeOctet();
         }
     }
@@ -988,13 +988,13 @@ QString QWspPduDecoder::decodeParameter()
         p = decodeTokenText() + "=";
         octet = peekOctet();
         if (octet <= 31 || octet & 0x80) {
-            p += decodeInteger();
+            p += QChar(decodeInteger());
         } else {
             // Extension-Media
             p += '\"';
             octet = decodeOctet();
             while (octet != 0 && !dev->atEnd()) {
-                p += octet;
+                p += QChar(octet);
                 octet = decodeOctet();
             }
             p += '\"';
